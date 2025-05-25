@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Builder</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #fdf6f0; color: #333; }
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    select, textarea, button { width: 100%; padding: 0.5rem; margin-top: 0.5rem; font-size: 1rem; }
+    #result { background: #fff; border: 1px solid #ccc; padding: 1rem; margin-top: 2rem; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <h1>Tumbler Prompt Builder</h1>
+
+  <label for="theme">Base Theme</label>
+  <select id="theme">
+    <option>Western Boho</option>
+    <option>Rustic Desert</option>
+    <option>Tribal / Aztec</option>
+    <option>Modern Minimal</option>
+    <option>Floral Grunge</option>
+    <option>Retro Cowgirl</option>
+    <option>Neon Southwest</option>
+    <option>Fantasy Nature</option>
+  </select>
+
+  <label for="motifs">Main Motifs (comma-separated)</label>
+  <textarea id="motifs" rows="2" placeholder="e.g., sunflowers, cow skulls, feathers"></textarea>
+
+  <label for="colors">Color Palette</label>
+  <textarea id="colors" rows="2" placeholder="e.g., turquoise, mustard, cream"></textarea>
+
+  <label for="textures">Textures / Effects</label>
+  <textarea id="textures" rows="2" placeholder="e.g., distressed, watercolor bleed"></textarea>
+
+  <label for="layout">Layout Style</label>
+  <select id="layout">
+    <option>Chevron</option>
+    <option>Symmetrical</option>
+    <option>Random Scatter</option>
+    <option>Radial/Centered</option>
+    <option>Vertical Stripes</option>
+    <option>Seamless Tile</option>
+    <option>Half-and-Half</option>
+  </select>
+
+  <button onclick="generatePrompt()">Generate Prompt</button>
+
+  <div id="result"></div>
+
+  <script>
+    function generatePrompt() {
+      const theme = document.getElementById('theme').value;
+      const motifs = document.getElementById('motifs').value;
+      const colors = document.getElementById('colors').value;
+      const textures = document.getElementById('textures').value;
+      const layout = document.getElementById('layout').value;
+
+      const prompt = `A seamless ${theme.toLowerCase()} pattern featuring ${motifs}, with a palette of ${colors}. Includes ${textures} effects, arranged in a ${layout.toLowerCase()} layout suitable for a 30cm x 30cm vinyl wrap or tumbler design.`;
+
+      document.getElementById('result').innerText = prompt;
+    }
+
+    // Service worker registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html>
